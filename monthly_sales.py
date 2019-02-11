@@ -25,16 +25,16 @@ csv_data = pandas.read_csv(csv_file_path)
 
 monthly_total = csv_data["sales price"].sum()
 
-top_sellers = [
-    {"name": "Button-Down Shirt", "monthly_sales": 6960.34},
-    {"name": "Super Soft Hoodie", "monthly_sales": 1875.0},
-    {"name": "Khaki Pants", "monthly_sales": 1602.0},
-    {"name": "Vintage Logo Tee", "monthly_sales": 941.05},
-    {"name": "Brown Boots", "monthly_sales": 250.0},
-    {"name": "Sticker Pack", "monthly_sales": 216.0},
-    {"name": "Baseball Cap", "monthly_sales": 156.31}
-] # TODO: get from CSV data instead
+# adapted from: https://github.com/s2t2/exec-dash-starter-py/commit/f790f124895db77920e37655c91e1e5a7a424aaa#diff-2bc9303c4e0187b3363d76974cc2fc8c
+product_names = csv_data["product"]
+unique_product_names = product_names.unique()
+unique_product_names = unique_product_names.tolist()
 
+top_sellers = [] # TODO: get from CSV data instead
+
+for product_name in unique_product_names:
+    product_monthly_sales = 100.00 #TODO calculate this
+    top_sellers.append({"name": product_name, "monthly_sales": product_monthly_sales})
 # sales_prices = [float(row["sales price"]) for row in rows]
 # total_sales = sum(sales_prices) #format this into USD 
 

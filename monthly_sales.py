@@ -33,24 +33,28 @@ for product, product_rows in rows_by_product:
     monthly_sales = sum([float(row["sales price"])for row in product_rows])
     product_sales.append({"name": product, "monthly_sales": monthly_sales})
 
-sorted_product_sales = sorted(product_sales, key=itemgetter("monthly sales", reverse=True))
+sorted_product_sales = sorted(product_sales, key=itemgetter("monthly_sales"), reverse=True)
 top_sellers = sorted_product_sales[0:3]
 
 month = "MARCH" #pull this from file data values
-year = 2018 #put this from file or data values
+year = 2018 #pull this from file or data values
+
+# adapted from https://github.com/prof-rossetti/georgetown-opim-243-201901/blob/master/exercises/sales-reporting/csv_solution_further.py
+def to_usd(my_price):
+    return f"${my_price:,.2f}"
 
 # TODO: write some Python code here to produce the desired functionality...
 
 print("-----------------------")
 #print("MONTH: March 2018")
-#print("MONTH: ", month, year)
+print(f"MONTH: {month} {year}")
 
 print("-----------------------")
 print("CRUNCHING THE DATA...")
 
 print("-----------------------")
 #print("TOTAL MONTHLY SALES: $12,000.71")
-print("TOTAL MONTHLY SALES: ", total_sales)
+print(f"TOTAL MONTHLY SALES: {to_usd(total_sales)}")
 
 print("-----------------------")
 print("TOP SELLING PRODUCTS:")

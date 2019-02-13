@@ -4,6 +4,7 @@ import operator
 import os
 import pandas as pd
 import matplotlib.pyplot as plt
+import matplotlib.ticker as ticker
 
 # adapted from https://github.com/prof-rossetti/georgetown-opim-243-201901/blob/master/exercises/sales-reporting/csv_solution_further.py
 
@@ -60,10 +61,13 @@ year = int(csv_file_name[6:10]) #pull this from file or data values
 # total_price_by_prod = pd.DataFrame({"products":products, "sales price":sales_price_col})
 # total_price_by_prod = total_price_by_prod.sort_values(by=["sales price"],ascending=False)
 
+# for i in range(3):
+# 	print(str(i+1)+') '+str(total_price_by_prod.iloc[i][0])+' ' "${0:,.2f}".format(total_price_by_prod.iloc[i][1])
+# 			)
+
 # TODO: write some Python code here to produce the desired functionality...
 
 print("-----------------------")
-#print("MONTH: March 2018")
 print(f"MONTH: {month} {year}")
 
 print("-----------------------")
@@ -88,8 +92,6 @@ print("VISUALIZING THE DATA...")
 
 # adapted from: https://github.com/s2t2/exec-dash-starter-py/commit/a0adfbe1af1b867889fdece114226cbd57657872#diff-2bc9303c4e0187b3363d76974cc2fc8c
 
-chart_title = "Top Selling Products (March 2018)" #TODO: get month and year
-
 sorted_products = []
 sorted_sales = []
 
@@ -97,7 +99,17 @@ for d in top_sellers:
     sorted_products.append(d["name"])
     sorted_sales.append(d["monthly_sales"])
 
-plt.bar(sorted_products, sorted_sales)
-plt.ylabel("Monthly Sales (USD)")
-plt.xlabel("Products")
+# adapted from: https://github.com/s2t2/exec-dash-starter-py/commit/01b261ca30ee4c64d93c2146a1659ae2c9d445a5
+sorted_products.reverse()
+sorted_sales.reverse()
+
+fig, ax = plt.subplots() 
+usd_formatter = ticker.FormatStrFormatter('$%1.2f')
+ax.xaxis.set_major_formatter(usd_formatter)
+
+plt.barh(sorted_products, sorted_sales)
+plt.xlabel(f"Monthly Sales (USD)")
+plt.ylabel("Products")
+
+plt.title(f"Top Selling Products {month} {year}")
 plt.show()

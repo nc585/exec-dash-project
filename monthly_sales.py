@@ -13,21 +13,22 @@ def to_usd(my_price):
 
 # adapted from shopping cart project
 
+#def main():
 while True:
     # notes from: https://github.com/prof-rossetti/georgetown-opim-243-201901/blob/master/notes/python/modules/os.md
     print(os.listdir("/Users/Nina/Documents/Python/exec-dash-project/data")) 
     
+    #guidance from Hiep
     csv_file_name = input("Please input the file name from the directory above in the format of sales-YYYYMM.csv: ")
-    if csv_file_name == "sales-201803.csv": #os.listdir("/Users/Nina/Documents/Python/exec-dash-project/data"):
-        break #make the above a reference  
-    if not csv_file_name == os.listdir("/Users/Nina/Documents/Python/exec-dash-project/data"):
+    csv_file_path = os.path.join("data/",csv_file_name)     
+    if not os.path.isfile(csv_filepath):
         print("We could not find your file. Please enter the exact file name from the directory above.")
-
+    else:
+        break
 # adapted from https://github.com/s2t2/exec-dash-starter-py/commit/525446a5850d211bb78dfe1cb3ffb42ea4b3c9ad#diff-2bc9303c4e0187b3363d76974cc2fc8c
 
-csv_file_path = os.path.join(os.path.dirname(__file__),"data",csv_file_name)
-csv_data = pd.read_csv(csv_file_path)
 
+csv_data = pd.read_csv(csv_file_path)
 monthly_total = csv_data["sales price"].sum()
 
 # adapted from: https://github.com/s2t2/exec-dash-starter-py/commit/f790f124895db77920e37655c91e1e5a7a424aaa#diff-2bc9303c4e0187b3363d76974cc2fc8c

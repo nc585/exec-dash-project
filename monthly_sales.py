@@ -13,20 +13,19 @@ def to_usd(my_price):
 
 # adapted from shopping cart project
 
-#def main():
 while True:
     # notes from: https://github.com/prof-rossetti/georgetown-opim-243-201901/blob/master/notes/python/modules/os.md
     print(os.listdir("/Users/Nina/Documents/Python/exec-dash-project/data")) 
     
-    #guidance from Hiep
+    # guidance from Hiep
     csv_file_name = input("Please input the file name from the directory above in the format of sales-YYYYMM.csv: ")
     csv_file_path = os.path.join("data/",csv_file_name)     
-    if not os.path.isfile(csv_filepath):
+    if not os.path.isfile(csv_file_path):
         print("We could not find your file. Please enter the exact file name from the directory above.")
     else:
         break
-# adapted from https://github.com/s2t2/exec-dash-starter-py/commit/525446a5850d211bb78dfe1cb3ffb42ea4b3c9ad#diff-2bc9303c4e0187b3363d76974cc2fc8c
 
+# adapted from https://github.com/s2t2/exec-dash-starter-py/commit/525446a5850d211bb78dfe1cb3ffb42ea4b3c9ad#diff-2bc9303c4e0187b3363d76974cc2fc8c
 
 csv_data = pd.read_csv(csv_file_path)
 monthly_total = csv_data["sales price"].sum()
@@ -77,16 +76,13 @@ print("CRUNCHING THE DATA...")
 print("-----------------------")
 print(f"TOTAL MONTHLY SALES: {to_usd(monthly_total)}")
 
+print("-----------------------")
+print("TOP SELLING PRODUCTS:") 
+
 rank = 1
 for d in top_sellers:
     print("  " + str(rank)+ ") " + d["name"]+ ": " + to_usd(d["monthly_sales"]))
     rank = rank + 1
-
-print("-----------------------")
-print("TOP SELLING PRODUCTS:")
-print("  1) Button-Down Shirt: $6,960.35")
-print("  2) Super Soft Hoodie: $1,875.00")
-print("  3) etc.")
 
 print("-----------------------")
 print("VISUALIZING THE DATA...")

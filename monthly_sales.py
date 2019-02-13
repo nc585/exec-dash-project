@@ -111,5 +111,12 @@ plt.barh(sorted_products, sorted_sales)
 plt.xlabel(f"Monthly Sales (USD)")
 plt.ylabel("Products")
 
+for bar_index, bar_size in enumerate(sorted_sales):
+    w = bar_size + 3
+    h = bar_index - .1
+    bar_label = to_usd(bar_size)
+    ax.text(w, h, bar_label)
+
 plt.title(f"Top Selling Products {month} {year}")
+plt.tight_layout()
 plt.show()

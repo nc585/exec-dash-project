@@ -17,7 +17,7 @@ while True:
     # notes from: https://github.com/prof-rossetti/georgetown-opim-243-201901/blob/master/notes/python/modules/os.md
     print(os.listdir("/Users/Nina/Documents/Python/exec-dash-project/data")) 
     
-    # guidance from Hiep
+    # guidance from https://github.com/hiepnguyen034
     csv_file_name = input("Please input the file name from the directory above in the format of sales-YYYYMM.csv: ")
     csv_file_path = os.path.join("data/",csv_file_name)     
     if not os.path.isfile(csv_file_path):
@@ -51,19 +51,8 @@ def month_lookup(month):
 	'11':'November', '12':'December'}
     return year_month[month]
 
-month = month_lookup(csv_file_name[-6:-4]) #pull this from file data values
-year = int(csv_file_name[6:10]) #pull this from file or data values
-
-# products = csv_data["product"].unique()
-# products.sort()
-# sales_price = csv_data.groupby(csv_data["product"]).sum()
-# sales_price_col = list("sales price")
-# total_price_by_prod = pd.DataFrame({"products":products, "sales price":sales_price_col})
-# total_price_by_prod = total_price_by_prod.sort_values(by=["sales price"],ascending=False)
-
-# for i in range(3):
-# 	print(str(i+1)+') '+str(total_price_by_prod.iloc[i][0])+' ' "${0:,.2f}".format(total_price_by_prod.iloc[i][1])
-# 			)
+month = month_lookup(csv_file_name[-6:-4]) 
+year = int(csv_file_name[6:10]) 
 
 # TODO: write some Python code here to produce the desired functionality...
 
@@ -114,6 +103,6 @@ for bar_index, bar_size in enumerate(sorted_sales):
     bar_label = to_usd(bar_size)
     ax.text(w, h, bar_label)
 
-plt.title(f"Top Selling Products {month} {year}")
+plt.title(f"Top Selling Products ({month} {year})")
 plt.tight_layout()
 plt.show()

@@ -21,4 +21,3 @@ def test_top_selling_products():
 
 
     assert results == expected_result
-    

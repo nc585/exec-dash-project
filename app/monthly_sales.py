@@ -1,34 +1,54 @@
 # monthly_sales.py
 
-import operator
 import os
 import pandas as pd
 import matplotlib.pyplot as plt
 import matplotlib.ticker as ticker
+from app.utils import to_usd
 
-# adapted from https://github.com/prof-rossetti/georgetown-opim-243-201901/blob/master/exercises/sales-reporting/csv_solution_further.py
+# expects "sales_data" to be a pandas dataframe with headers: "product", "sales price", etc.
+def top_selling_products(sales_data):
+    product_totals = sales_data.groupby(["product"]).sum()
+    product_totals = product_totals.sort_values("sales price", ascending=False)
+    top_sellers = []
+    rank = 1
+    for i, row in product_totals.iterrows():
+        d = {"rank": rank, "name": row.name, "monthly_sales": row["sales price"]}
+        top_sellers.append(d)
+        rank = rank + 1
+    return top_sellers
 
-def to_usd(my_price):
-    return f"${my_price:,.2f}"
+if __name__ == "__main__":
 
-# adapted from shopping cart project
+#
+# INPUTS
+#
 
-while True:
-    # notes from: https://github.com/prof-rossetti/georgetown-opim-243-201901/blob/master/notes/python/modules/os.md
-    print(os.listdir("/Users/Nina/Documents/Python/exec-dash-project/data")) 
-    
-    # guidance from https://github.com/hiepnguyen034
-    csv_file_name = input("Please input the file name from the directory above in the format of sales-YYYYMM.csv: ")
-    csv_file_path = os.path.join("data/",csv_file_name)     
-    if not os.path.isfile(csv_file_path):
-        print("We could not find your file. Please enter the exact file name from the directory above.")
-    else:
-        break
+    while True:
+        # notes from: https://github.com/prof-rossetti/georgetown-opim-243-201901/blob/master/notes/python/modules/os.md
+        print(os.listdir("/Users/Nina/Documents/Python/exec-dash-project/data")) 
+        # guidance from https://github.com/hiepnguyen034
+        csv_file_name = input("Please input the file name from the directory above in the format of sales-YYYYMM.csv: ")
+        csv_file_path = os.path.join("data/",csv_file_name)     
+        if not os.path.isfile(csv_file_path):
+            print("We could not find your file. Please enter the exact file name from the directory above.")
+        else:
+            break
 
-# adapted from https://github.com/s2t2/exec-dash-starter-py/commit/525446a5850d211bb78dfe1cb3ffb42ea4b3c9ad#diff-2bc9303c4e0187b3363d76974cc2fc8c
+    # adapted from https://github.com/s2t2/exec-dash-starter-py/commit/525446a5850d211bb78dfe1cb3ffb42ea4b3c9ad#diff-2bc9303c4e0187b3363d76974cc2fc8c
 
-csv_data = pd.read_csv(csv_file_path)
-monthly_total = csv_data["sales price"].sum()
+    csv_data = pd.read_csv(csv_file_path)
+
+#
+# CALCULATIONS
+#
+
+    monthly_total = csv_data["sales price"].sum()
+    top_sellers = top_selling_products(csv_data)
+
+# 
+# OUTPUTS
+#
 
 # adapted from: https://github.com/s2t2/exec-dash-starter-py/commit/f790f124895db77920e37655c91e1e5a7a424aaa#diff-2bc9303c4e0187b3363d76974cc2fc8c
 product_names = csv_data["product"]
